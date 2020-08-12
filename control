@@ -1,0 +1,9 @@
+Package: com.volumestep13.randy420
+Name: VolumeStep13
+Author: Randy420
+Description: Change the volume step limits
+Depends: mobilesubstrate, ws.hbang.common
+Maintainer: Randy420 <randy.skinner28@outlook.com>
+Architecture: iphoneos-arm
+Section: Tweaks
+Version: 0.0.9

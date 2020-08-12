@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>headerCellClass</key>
+			<string>HBImageTableCell</string>
+			<key>icon</key>
+			<string>head.png</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>key</key>
+			<string>VSisEnabled</string>
+			<key>label</key>
+			<string>Enable</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Volume Step Change</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>key</key>
+			<string>VSStepEnabled</string>
+			<key>label</key>
+			<string>Volume Slider Enable</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<integer>3</integer>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>isSegmented</key>
+			<true/>
+			<key>key</key>
+			<string>prefInt</string>
+			<key>label</key>
+			<string>Enter the desired step up/down value:</string>
+			<key>max</key>
+			<integer>50</integer>
+			<key>min</key>
+			<real>1</real>
+			<key>segmentCount</key>
+			<integer>49</integer>
+			<key>showValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Haptic Options</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>key</key>
+			<string>vsVibEnabled</string>
+			<key>label</key>
+			<string>Haptic Feedback Enabled</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>key</key>
+			<string>VSVibeLevel</string>
+			<key>validTitles</key>
+			<array>
+				<string>Light</string>
+				<string>Medium</string>
+				<string>Strong</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Contact 🌎</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>Twitter2</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>1.png</string>
+			<key>label</key>
+			<string>Randy420 (Dev)</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>Twitter3</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>1.png</string>
+			<key>label</key>
+			<string>AliCydia (Design)</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>pay</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>pay.png</string>
+			<key>label</key>
+			<string>Cheer a beer 🍺</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerAlignment</key>
+			<string>1</string>
+			<key>footerText</key>
+			<string>Copyright - Volume Step13 2020</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Volume Step</string>
+</dict>
+</plist>
