@@ -1,5 +1,3 @@
-#pragma GCC diagnostic ignored "-Wunused-variable"
-
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
 
@@ -14,17 +12,11 @@
 
 void loader(void) {
 	MutDiction = [[NSMutableDictionary alloc] initWithContentsOfFile: prefs];
-	
 	VSStepValue = [MutDiction objectForKey:@"prefInt"] ? [[MutDiction objectForKey:@"prefInt"] floatValue] :  3.0;
-	
 	VSStepValue /= 100;
-
 	enabled = [MutDiction objectForKey:@"VSisEnabled"] ? [[MutDiction objectForKey:@"VSisEnabled"] boolValue] :  YES;
-
 	vsEnabled = [MutDiction objectForKey:@"VSStepEnabled"] ? [[MutDiction objectForKey:@"VSStepEnabled"] boolValue] :  YES;
-
 	vsVibe = [MutDiction objectForKey:@"vsVibEnabled"] ? [[MutDiction objectForKey:@"vsVibEnabled"] boolValue] :  YES;
-
 	vsVibLevel = [MutDiction objectForKey:@"VSVibeLevel"] ? [[MutDiction objectForKey:@"VSVibeLevel"] intValue] :  1;
 }
 
