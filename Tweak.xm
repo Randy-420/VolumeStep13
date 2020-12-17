@@ -10,7 +10,7 @@
     static int vsVibLevel;
     NSMutableDictionary * MutDiction;
 
-#define prefs @ "/var/mobile/Library/Preferences/com.randy420.volumestepprefs.plist"
+#define prefs @ "/var/mobile/Library/Preferences/com.randy420.VolumeStep13Prefs.plist"
 
 void loader(void) {
 	MutDiction = [[NSMutableDictionary alloc] initWithContentsOfFile: prefs];
@@ -62,6 +62,6 @@ void loader(void) {
 
 %ctor {
 	loader();
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)loader, CFSTR("com.randy420.volumestepprefs.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)loader, CFSTR("com.randy420.VolumeStep13Prefs.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
 
 }
