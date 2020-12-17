@@ -5,10 +5,10 @@ include $(THEOS)/makefiles/common.mk
 export ARCHS = armv7 armv7s arm64 arm64e
 INSTALL_TARGET_PROCESSES = springboard
 
-TWEAK_NAME = VolumeStep13
-VolumeStep13_FILES = Tweak.xm
+TWEAK_NAME = VolumeStep13.14
+$(TWEAK_NAME)_FILES = Tweak.xm
 
-$(BUNDLE_NAME)_EXTRA_FRAMEWORKS += Cephei CepheiPrefs
+$(TWEAK_NAME)_EXTRA_FRAMEWORKS += Cephei CepheiPrefs
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 SUBPROJECTS += volumestepprefs
