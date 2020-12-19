@@ -6,11 +6,13 @@
 	<array>
 		<dict>
 			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>headerCellClass</key>
 			<string>HBImageTableCell</string>
 			<key>icon</key>
-			<string>head.png</string>
+			<string>heabd.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>PostNotification</key>
@@ -18,7 +20,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
 			<key>key</key>
@@ -42,7 +44,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
 			<key>key</key>
@@ -90,7 +92,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
 			<key>key</key>
@@ -168,10 +170,10 @@
 			<key>footerAlignment</key>
 			<string>1</string>
 			<key>footerText</key>
-			<string>Copyright - Volume Step13 2020</string>
+			<string>Copyright - VolumeStep13/14 2020</string>
 		</dict>
 	</array>
 	<key>title</key>
-	<string>Volume Step</string>
+	<string>VolumeStep13/14</string>
 </dict>
 </plist>
