@@ -3,7 +3,7 @@
 @implementation AppearanceSettings
 
 -(UIColor *)tintColor {
-    return [UIColor colorWithRed: 0.00 green: 0.20 blue: 0.31 alpha: 1.00];
+    return [UIColor colorWithRed: 0.20 green: 0.35 blue: 0.80 alpha: 1.00];
 }
 
 -(UIColor *)statusBarTintColor {
@@ -29,9 +29,4 @@
 -(BOOL)translucentNavigationBar {
     return NO;
 }
-
-/*- (NSUInteger)largeTitleStyle {
-    return 2;
-}*/
-
 @end

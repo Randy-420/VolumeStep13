@@ -6,4 +6,4 @@ Depends: mobilesubstrate, ws.hbang.common
 Maintainer: Randy420 <randy.skinner@hotmail.com>
 Architecture: iphoneos-arm
 Section: Tweaks
-Version: 0.1.2
+Version: 0.1.3

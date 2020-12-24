@@ -6,30 +6,6 @@
 	<array>
 		<dict>
 			<key>cell</key>
-			<string>HBImageTableCell</string>
-			<key>icon</key>
-			<string>heabd.png</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>PostNotification</key>
-			<string>com.randy420.volumestepprefs.settingschanged</string>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>com.randy420.volumestepprefs</string>
-			<key>key</key>
-			<string>VSisEnabled</string>
-			<key>label</key>
-			<string>Enable</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
@@ -44,13 +20,43 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<false/>
+			<true/>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
+			<key>id</key>
+			<string>vsEnable</string>
 			<key>key</key>
 			<string>VSStepEnabled</string>
 			<key>label</key>
-			<string>Volume Slider Enable</string>
+			<string>Enable Custom Volume-Step:</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>id</key>
+			<string>vsSeperate</string>
+			<key>key</key>
+			<string>vsSeperate</string>
+			<key>label</key>
+			<string>Seperate Volume Up/Down</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>VolumeUp</string>
+			<key>label</key>
+			<string>Volume Step Up</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>VolumeUpDown</string>
+			<key>label</key>
+			<string>Volume Step Up/Down</string>
 		</dict>
 		<dict>
 			<key>PostNotification</key>
@@ -61,12 +67,46 @@
 			<integer>3</integer>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
+			<key>id</key>
+			<string>prefInt</string>
 			<key>isSegmented</key>
 			<true/>
 			<key>key</key>
 			<string>prefInt</string>
 			<key>label</key>
-			<string>Enter the desired step up/down value:</string>
+			<string>Enter the desired step value:</string>
+			<key>max</key>
+			<integer>50</integer>
+			<key>min</key>
+			<real>1</real>
+			<key>segmentCount</key>
+			<integer>49</integer>
+			<key>showValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>VolumeDown</string>
+			<key>label</key>
+			<string>Volume Step Down</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.randy420.volumestepprefs.settingschanged</string>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<integer>3</integer>
+			<key>defaults</key>
+			<string>com.randy420.volumestepprefs</string>
+			<key>id</key>
+			<string>prefIntDown</string>
+			<key>isSegmented</key>
+			<true/>
+			<key>key</key>
+			<string>prefIntDown</string>
+			<key>label</key>
+			<string>Enter the desired step down value:</string>
 			<key>max</key>
 			<integer>50</integer>
 			<key>min</key>
@@ -95,6 +135,8 @@
 			<false/>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
+			<key>id</key>
+			<string>Vibration</string>
 			<key>key</key>
 			<string>vsVibEnabled</string>
 			<key>label</key>
@@ -109,6 +151,8 @@
 			<integer>1</integer>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
+			<key>id</key>
+			<string>VibeHide</string>
 			<key>key</key>
 			<string>VSVibeLevel</string>
 			<key>validTitles</key>

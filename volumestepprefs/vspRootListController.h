@@ -13,5 +13,5 @@
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UILabel *credit;
 @property (nonatomic, retain) UIImageView *iconView;
-
+@property (nonatomic, retain) NSMutableDictionary *savedSpecifiers;
 @end
