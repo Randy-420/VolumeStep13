@@ -20,7 +20,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.randy420.volumestepprefs</string>
 			<key>id</key>

@@ -25,9 +25,9 @@ void loader(void) {
 
 	vsSeperate = [MutDiction objectForKey:@"vsSeperate"] ? [[MutDiction objectForKey:@"vsSeperate"] boolValue] :  NO;
 
-	vsEnabled = [MutDiction objectForKey:@"VSStepEnabled"] ? [[MutDiction objectForKey:@"VSStepEnabled"] boolValue] :  YES;
+	vsEnabled = [MutDiction objectForKey:@"VSStepEnabled"] ? [[MutDiction objectForKey:@"VSStepEnabled"] boolValue] :  NO;
 
-	vsVibe = [MutDiction objectForKey:@"vsVibEnabled"] ? [[MutDiction objectForKey:@"vsVibEnabled"] boolValue] :  YES;
+	vsVibe = [MutDiction objectForKey:@"vsVibEnabled"] ? [[MutDiction objectForKey:@"vsVibEnabled"] boolValue] :  NO;
 
 	vsVibLevel = [MutDiction objectForKey:@"VSVibeLevel"] ? [[MutDiction objectForKey:@"VSVibeLevel"] intValue] :  1;
 }
