@@ -1,12 +1,6 @@
 #include "vspRootListController.h"
 
-
-@interface PSListController (iOS12Plus)
--(BOOL)containsSpecifier:(PSSpecifier *)arg1;
-@end
-
 @implementation vspRootListController
-bool separate;
 - (instancetype)init {
 	self = [super init];
 	if (self) {
@@ -95,115 +89,53 @@ bool separate;
 	NSString *key = [specifier propertyForKey:@"key"];
 	if ([key isEqualToString:@"VSStepEnabled"]) {
 		if (![value boolValue]) {
-			if([self containsSpecifier:self.savedSpecifiers[@"vsSeperate"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"vsSeperate"]] animated:YES];
-			}
-			
-			if([self containsSpecifier:self.savedSpecifiers[@"VolumeUp"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUp"]] animated:NO];
-			}
-			
-			if([self containsSpecifier:self.savedSpecifiers[@"VolumeUpDown"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUpDown"]] animated:NO];
-			}
-			
-			if([self containsSpecifier:self.savedSpecifiers[@"prefInt"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"prefInt"]] animated:YES];
-			}
-			
-			if([self containsSpecifier:self.savedSpecifiers[@"VolumeDown"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeDown"]] animated:YES];
-			}
-			
-			if([self containsSpecifier:self.savedSpecifiers[@"prefIntDown"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"prefIntDown"]] animated:YES];
-			}
+			[self hideMe:@"vsSeperate" animate:YES];
+			[self hideMe:@"VolumeUp" animate:YES];
+			[self hideMe:@"VolumeUpDown" animate:YES];
+			[self hideMe:@"prefInt" animate:YES];
+			[self hideMe:@"VolumeDown" animate:YES];
+			[self hideMe:@"prefIntDown" animate:YES];
 		} else {
-			if (![self containsSpecifier:self.savedSpecifiers[@"vsSeperate"]]) {
-				[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"vsSeperate"]] afterSpecifierID:@"vsEnable" animated:YES];
-			}
-			if (![self containsSpecifier:self.savedSpecifiers[@"prefInt"]]) {
-				[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"prefInt"]] afterSpecifierID:@"vsSeperate" animated:YES];
-			}
-			if (separate) {
-				if (![self containsSpecifier:self.savedSpecifiers[@"VolumeUp"]]) {
-					[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUp"]] afterSpecifierID:@"vsSeperate" animated:NO];
-				}
-
-				if (![self containsSpecifier:self.savedSpecifiers[@"VolumeDown"]]) {
-					[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeDown"]] afterSpecifierID:@"prefInt" animated:YES];
-				}
-				if (![self containsSpecifier:self.savedSpecifiers[@"prefIntDown"]]) {
-					[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"prefIntDown"]] afterSpecifierID:@"VolumeDown" animated:YES];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"VolumeUpDown"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUpDown"]] animated:NO];
-				}
+			[self showMe:@"vsSeperate" after:@"vsEnable" animate:YES];
+			[self showMe:@"prefInt" after:@"vsSeperate" animate:YES];
+			if (self.separate) {
+				[self showMe:@"VolumeUp" after:@"vsSeperate" animate:YES];
+				[self showMe:@"VolumeDown" after:@"prefInt" animate:YES];
+				[self showMe:@"prefIntDown" after:@"VolumeDown" animate:YES];
+				[self hideMe:@"VolumeUpDown" animate:YES];
 			} else {
-				if (![self containsSpecifier:self.savedSpecifiers[@"VolumeUpDown"]]) {
-					[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUpDown"]] afterSpecifierID:@"vsSeperate" animated:NO];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"VolumeDown"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeDown"]] animated:YES];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"VolumeUp"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUp"]] animated:NO];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"prefIntDown"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"prefIntDown"]] animated:YES];
-				}
+				[self showMe:@"VolumeUpDown" after:@"vsSeperate" animate:YES];
+				[self hideMe:@"VolumeDown" animate:YES];
+				[self hideMe:@"VolumeUp" animate:YES];
+				[self hideMe:@"prefIntDown" animate:YES];
 			}
 		}
 	}
-	
-	
 	
 	if ([key isEqualToString:@"vsSeperate"]) {
 		if (![value boolValue]) {
-			separate = NO;
+			self.separate = NO;
 			if([self containsSpecifier:self.savedSpecifiers[@"prefInt"]]) {
-				if (![self containsSpecifier:self.savedSpecifiers[@"VolumeUpDown"]]) {
-					[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUpDown"]] afterSpecifierID:@"vsSeperate" animated:NO];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"VolumeDown"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeDown"]] animated:YES];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"VolumeUp"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUp"]] animated:NO];
-				}
-				if ([self containsSpecifier:self.savedSpecifiers[@"prefIntDown"]]) {
-					[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"prefIntDown"]] animated:YES];
-				}
+				[self showMe:@"VolumeUpDown" after:@"vsSeperate" animate:NO];
+				[self hideMe:@"VolumeDown" animate:YES];
+				[self hideMe:@"VolumeUp" animate:NO];
+				[self hideMe:@"prefIntDown" animate:YES];
 			}
 		} else if([self containsSpecifier:self.savedSpecifiers[@"prefInt"]]) {
-			separate = YES;
-			if (![self containsSpecifier:self.savedSpecifiers[@"vsSeperate"]]) {
-				[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"vsSeperate"]] afterSpecifierID:@"vsEnable" animated:YES];
-			}
-			if (![self containsSpecifier:self.savedSpecifiers[@"VolumeUp"]]) {
-				[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUp"]] afterSpecifierID:@"vsSeperate" animated:NO];
-			}
-			if (![self containsSpecifier:self.savedSpecifiers[@"VolumeDown"]]) {
-				[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeDown"]] afterSpecifierID:@"prefInt" animated:YES];
-			}
-			if (![self containsSpecifier:self.savedSpecifiers[@"prefIntDown"]]) {
-				[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"prefIntDown"]] afterSpecifierID:@"VolumeDown" animated:YES];
-			}
-			if ([self containsSpecifier:self.savedSpecifiers[@"VolumeUpDown"]]) {
-				[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUpDown"]] animated:NO];
-			}
+			self.separate = YES;
+			[self showMe:@"vsSeperate" after:@"vsEnable" animate:YES];
+			[self showMe:@"VolumeUp" after:@"vsSeperate" animate:NO];
+			[self showMe:@"VolumeDown" after:@"prefInt" animate:YES];
+			[self showMe:@"prefIntDown" after:@"VolumeDown" animate:YES];
+			[self hideMe:@"VolumeUpDown" animate:NO];
 		}
 	}
 	
-	
-	
-	
-	
 	if ([key isEqualToString:@"vsVibEnabled"]) {
 		if (![value boolValue]) {
-			[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VibeHide"]] animated:YES];
-		} else if(![self containsSpecifier:self.savedSpecifiers[@"VibeHide"]]) {
-			[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"VibeHide"]] afterSpecifierID:@"Vibration" animated:YES];
+			[self hideMe:@"VibeHide" animate:YES];
+		} else {
+			[self showMe:@"VibeHide" after:@"Vibration" animate:YES];
 		}
 	}
 
@@ -215,23 +147,27 @@ bool separate;
 -(void)reloadSpecifiers {
 	[super reloadSpecifiers];
 	NSDictionary *preferences = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.randy420.volumestepprefs.plist"];
-if (![preferences[@"VSStepEnabled"] boolValue]) {
-		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"vsSeperate"], self.savedSpecifiers[@"VolumeUp"], self.savedSpecifiers[@"VolumeUpDown"], self.savedSpecifiers[@"prefInt"], self.savedSpecifiers[@"VolumeDown"], self.savedSpecifiers[@"prefIntDown"]] animated:YES];
+	if (![preferences[@"VSStepEnabled"] boolValue]) {
+		[self hideMe:@"vsSeperate" animate:YES];
+		[self hideMe:@"VolumeUp" animate:YES];
+		[self hideMe:@"VolumeUpDown" animate:YES];
+		[self hideMe:@"prefInt" animate:YES];
+		[self hideMe:@"VolumeDown" animate:YES];
+		[self hideMe:@"prefIntDown" animate:YES];
 	}
 
 	if(![preferences[@"vsSeperate"] boolValue]) {
-		separate = NO;
-		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUp"]] animated:NO];
-		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeDown"]] animated:YES];
-		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"prefIntDown"]] animated:YES];
+		self.separate = NO;
+		[self hideMe:@"VolumeUp" animate:NO];
+		[self hideMe:@"VolumeDown" animate:YES];
+		[self hideMe:@"prefIntDown" animate:YES];
 	} else {
-		separate = YES;
-		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VolumeUpDown"]] animated:NO];
+		self.separate = YES;
+		[self hideMe:@"VolumeUpDown" animate:NO];
 	}
-	
-	
+
 	if(![preferences[@"vsVibEnabled"] boolValue]) {
-		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"VibeHide"]] animated:YES];
+		[self hideMe:@"VibeHide" animate:YES];
 	}
 }
 
@@ -273,5 +209,17 @@ if (![preferences[@"VSStepEnabled"] boolValue]) {
 
 -(void)Twitter2 {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://mobile.twitter.com/rj_skins"] options:@{} completionHandler:nil];
+}
+
+-(void) showMe:(NSString *)showMe after:(NSString *)after animate:(bool)animate {
+	if (![self containsSpecifier:self.savedSpecifiers[showMe]]) {
+		[self insertContiguousSpecifiers:@[self.savedSpecifiers[showMe]] afterSpecifierID:after animated:animate];
+	}
+}
+
+-(void) hideMe:(NSString *)hideMe animate:(bool)animate{
+	if ([self containsSpecifier:self.savedSpecifiers[hideMe]]) {
+		[self removeContiguousSpecifiers:@[self.savedSpecifiers[hideMe]] animated:animate];
+	}
 }
 @end
