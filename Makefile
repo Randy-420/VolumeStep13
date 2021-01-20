@@ -11,5 +11,4 @@ VolumeStep13_FILES = Tweak.xm
 VolumeStep13_EXTRA_FRAMEWORKS += Cephei
 
 include $(THEOS_MAKE_PATH)/tweak.mk
-SUBPROJECTS += volumestepprefs
 include $(THEOS_MAKE_PATH)/aggregate.mk
