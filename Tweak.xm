@@ -1,68 +1,61 @@
-#pragma GCC diagnostic ignored "-Wunused-variable"
-
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
 
-	static float VSStepValue;
-	static float vsStepDown;
-	static bool vsVibe;
-	static bool vsEnabled;
-	static bool vsSeperate;
-	static int vsVibLevel;
-	NSMutableDictionary * MutDiction;
+static BOOL GetBool(NSString *key, BOOL defaultValue) {
+	Boolean exists;
+	Boolean result = CFPreferencesGetAppBooleanValue((CFStringRef)key, CFSTR("com.randy420.volumestepprefs"), &exists);
+	return exists ? result : defaultValue;
+}
 
-#define prefs @ "/var/mobile/Library/Preferences/com.randy420.volumestepprefs.plist"
+static float GetFloat(NSString *key, float defaultValue) {
+	id value = (id)CFPreferencesCopyAppValue((CFStringRef)key, CFSTR("com.randy420.volumestepprefs"));
+	float result = [value respondsToSelector:@selector(floatValue)] ? [value floatValue] : defaultValue;
+	[value release];
+	return result;
+}
 
-void loader(void) {
-	MutDiction = [[NSMutableDictionary alloc] initWithContentsOfFile: prefs];
-
-	VSStepValue = [MutDiction objectForKey:@"prefInt"] ? [[MutDiction objectForKey:@"prefInt"] floatValue] :  3.0;
-
-	vsStepDown = [MutDiction objectForKey:@"prefIntDown"] ? [[MutDiction objectForKey:@"prefIntDown"] floatValue] :  3.0;
-
-	VSStepValue /= 100;
-	vsStepDown /= 100;
-
-	vsSeperate = [MutDiction objectForKey:@"vsSeperate"] ? [[MutDiction objectForKey:@"vsSeperate"] boolValue] :  NO;
-
-	vsEnabled = [MutDiction objectForKey:@"VSStepEnabled"] ? [[MutDiction objectForKey:@"VSStepEnabled"] boolValue] :  NO;
-
-	vsVibe = [MutDiction objectForKey:@"vsVibEnabled"] ? [[MutDiction objectForKey:@"vsVibEnabled"] boolValue] :  NO;
-
-	vsVibLevel = [MutDiction objectForKey:@"VSVibeLevel"] ? [[MutDiction objectForKey:@"VSVibeLevel"] intValue] :  1;
+static int GetInt(NSString *key, int defaultValue) {
+	id value = (id)CFPreferencesCopyAppValue((CFStringRef)key, CFSTR("com.randy420.volumestepprefs"));
+	int result = [value respondsToSelector:@selector(intValue)] ? [value intValue] : defaultValue;
+	[value release];
+	return result;
 }
 
 %hook SBVolumeControl
-- (float)volumeStepUp {
-	return vsEnabled ? VSStepValue : %orig;
-}
+-(void)changeVolumeByDelta:(float)step{
+	bool vsEnabled = GetBool(@"VSStepEnabled", NO);
+	bool vsSeperate = GetBool(@"vsSeperate", NO);
+	bool vsVibe = GetBool(@"vsVibEnabled", NO);
 
-- (float)volumeStepDown {
-	return vsSeperate ? (vsEnabled ? vsStepDown : %orig) : (vsEnabled ? VSStepValue : %orig);
-	/*if(vsSeperate) {
-		return vsEnabled ? vsStepDown : %orig;
-	}else{
-		return vsEnabled ? VSStepValue : %orig;
-	}*/
-}
-%end
+	float vsStepValue = (GetFloat(@"prefInt", 3.0))/100;
+	float vsStepDown = (GetFloat(@"prefIntDown", 3.0))/100;
 
-%hook SBVolumeControl
-- (void)_presentVolumeHUDWithVolume:(float)arg1 {
+	int vsVibLevel = GetInt(@"VSVibeLevel", 1);
+	//////~VOLUME~HANDLING~//////
+	if (step >= 0) {
+		step = vsEnabled ? vsStepValue : step;
+	} else {
+		step = vsSeperate ? (vsEnabled ? vsStepDown * -1 : step) : (vsEnabled ? vsStepValue * -1 : step);
+	}
+	//////~VIBRATION~HANDLING~//////
 	if(vsVibe) {
 		if (vsVibLevel == 0) {
 			AudioServicesPlaySystemSound(1519);
-		}else if (vsVibLevel == 1) {
+		} else if (vsVibLevel == 1) {
 			AudioServicesPlaySystemSound(1520);
-		}else{
+		} else {
 			AudioServicesPlaySystemSound(1521);
 		}
 	}
-	%orig;
+	%orig(step);
 }
 %end
 
+static void PreferencesCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+	CFPreferencesAppSynchronize(CFSTR("com.randy420.volumestepprefs"));
+}
+
 %ctor {
-	loader();
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)loader, CFSTR("com.randy420.volumestepprefs.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+		%init();
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesCallback, CFSTR("com.randy420.volumestepprefs.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
 }
