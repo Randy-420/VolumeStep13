@@ -53,14 +53,15 @@ static void vibrate(){
 %group thirteen
 %hook SBVolumeControl
 -(void)changeVolumeByDelta:(float)step{
-	//////~VOLUME~HANDLING~//////
+	//////~VOLUME~STEP~HANDLING~//////
 	if (step >= 0) {
 		step = vsEnabled ? VSStepValue : step;
 	} else {
-		step = vsSeperate ? (vsStepDown * -1) : (VSStepValue * -1);
+		step = vsEnabled ? (vsSeperate ? (vsStepDown * -1) : (VSStepValue * -1)) : step;
 	}
 	//////~VIBRATION~HANDLING~//////
 	vibrate();
+	/////Continue changeVolumeByDelta/////
 	%orig(step);
 }
 	////~ALT~VOLUME~HANDLING~////
@@ -71,7 +72,7 @@ static void vibrate(){
 
 - (float)volumeStepDown {
 	vibrate();
-	return vsSeperate ? vsStepDown : VSStepValue;
+	return vsEnabled ? (vsSeperate ? vsStepDown : VSStepValue) : %orig;
 }*/
 %end
 %end
