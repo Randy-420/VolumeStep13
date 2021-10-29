@@ -11,4 +11,5 @@ $(TWEAK_NAME)_FILES = Tweak.xm
 $(TWEAK_NAME)_EXTRA_FRAMEWORKS += Cephei
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+SUBPROJECTS += vscc
 include $(THEOS_MAKE_PATH)/aggregate.mk
