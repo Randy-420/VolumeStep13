@@ -1,12 +1,10 @@
 Package: com.volumestep.randy420
 Name: VolumeStep13/14
 Author: Randy420 <randy.skinner@hotmail.com>
-Description: The side volume buttons change the volume by 6.25 percent per click by default. 
- VolumeStep13/14 allows you to customize that between 1 percent and 50 percent 
- • includes CC Toggle 
- • add vibration response on volume key press 
- 
- SHOULD WORK ON IOS 12-15
+Description: The side volume buttons change the volume by 6.25 percent per click by default.
+ VolumeStep13/14 allows you to customize that between 1 percent and 50 percent
+ • includes CC Toggle
+ • add vibration response on volume key press
 Depiction: https://Randy-420.GitHub.io/depic/volumeStep.html
 Depends: mobilesubstrate, com.randy420.tools (>=1.7)
 Maintainer: Randy420 <randy.skinner@hotmail.com>
