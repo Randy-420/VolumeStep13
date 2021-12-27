@@ -7,3 +7,6 @@
 push.sh
 *.zip
 .gitignore
+.git
+packages
+DEBs
