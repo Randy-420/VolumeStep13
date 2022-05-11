@@ -4,7 +4,7 @@
 ._*
 .theos
 *.txt
-push.sh
+*.sh
 *.zip
 .gitignore
 .git
