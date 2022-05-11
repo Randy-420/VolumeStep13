@@ -6,8 +6,8 @@ Description: The side volume buttons change the volume by 6.25 percent per click
  • includes CC Toggle
  • add vibration response on volume key press
 Depiction: https://Randy-420.GitHub.io/depic/volumeStep.html
-Depends: mobilesubstrate, com.randy420.tools (>=1.7)
+Depends: mobilesubstrate, com.randy420.tools (>=2.3)
 Maintainer: Randy420 <randy.skinner@hotmail.com>
 Architecture: iphoneos-arm
 Section: Tweaks
-Version: 0.2.0
+Version: ./version.sh.0.2.1../version.sh

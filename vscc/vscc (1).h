@@ -9,4 +9,5 @@
 
 @interface vscc : CCUIToggleModule {
 }
+//@property (atomatic) vsSettings *Enabled;
 @end

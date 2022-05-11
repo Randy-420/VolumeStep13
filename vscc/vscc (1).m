@@ -21,6 +21,9 @@ static BOOL GetBool(NSString *key, BOOL defaultValue) {
 
 - (void)setSelected:(bool)selected {
 	[super refreshState];
+	NSMutableDictionary *Dict = /*[NSMutableDictionary dictionaryWithDictionary:*/[NSMutableDictionary dictionaryWithContentsOfFile:PLIST];//];
+	[Dict setValue:[NSNumber numberWithBool:selected] forKey:MYCC];
+	[Dict writeToFile:PLIST atomically:YES];
 	CFPreferencesSetAppValue((CFStringRef)MYCC, (CFPropertyListRef)@(selected), PREFS);
 	CFPreferencesAppSynchronize(PREFS);
 	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), SETTINGS_CHANGED, NULL, NULL, TRUE);

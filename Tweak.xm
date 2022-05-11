@@ -1,53 +1,27 @@
 #include "Tweak.h"
+#import "vsSettings.h"
 
 	static float VSStepValue;
 	static float vsStepDown;
 	static bool vsVibe;
+	static bool vsVibeMinMax;
 	static bool vsEnabled;
 	static bool vsSeperate;
 	static int vsVibLevel;
+	static float currentVolume;
 
-#define PREFS @"/var/mobile/Library/Preferences/com.randy420.volumestepprefs.plist"
+static void loader() {
+	vsSettings *_settings = [[vsSettings alloc] init];
 
-static float GetFloat(NSString *key, float defaultValue) {
-	NSMutableDictionary *MutDiction = [[NSMutableDictionary alloc] initWithContentsOfFile:PREFS];
+	vsEnabled = [_settings VSStepEnabled];
+	vsSeperate = [_settings vsSeperate];
+	vsVibe = [_settings vsVibEnabled];
+	vsVibeMinMax = [_settings vsVibeMinMax];
 
-	return [MutDiction objectForKey:key] ? [[MutDiction objectForKey:key] floatValue] :  defaultValue;
-}
+	VSStepValue = [_settings prefInt];
+	vsStepDown = [_settings prefIntDown];
 
-static BOOL GetBool(NSString *key, BOOL defaultValue) {
-	NSMutableDictionary *MutDiction = [[NSMutableDictionary alloc] initWithContentsOfFile:PREFS];
-
-	return [MutDiction objectForKey:key] ? [[MutDiction objectForKey:key] boolValue] :  defaultValue;
-}
-
-static int GetInt(NSString *key, int defaultValue) {
-	NSMutableDictionary *MutDiction = [[NSMutableDictionary alloc] initWithContentsOfFile:PREFS];
-
-	return [MutDiction objectForKey:key] ? [[MutDiction objectForKey:key] intValue] :  defaultValue;
-}
-
-void loader() {
-	VSStepValue = GetFloat(@"prefInt", 3.0)/100;
-	vsStepDown = GetFloat(@"prefIntDown", 3.0)/100;
-
-	vsSeperate = GetBool(@"vsSeperate", NO);
-	vsEnabled = GetBool(@"VSStepEnabled", YES);
-	vsVibe = GetBool(@"vsVibEnabled", NO);
-
-	vsVibLevel = GetInt(@"VSVibeLevel", 1);
-}
-
-static void vibrate(){
-	if (vsVibe){
-		if (vsVibLevel == 0){
-			AudioServicesPlaySystemSound(1519);
-		}else if (vsVibLevel == 1){
-			AudioServicesPlaySystemSound(1520);
-		}else if (vsVibLevel == 2){
-			AudioServicesPlaySystemSound(1521);
-		}
-	}
+	vsVibLevel = [_settings VSVibeLevel];
 }
 
 %group thirteen
@@ -60,18 +34,18 @@ static void vibrate(){
 		step = vsEnabled ? (vsSeperate ? (vsStepDown * -1) : (VSStepValue * -1)) : step;
 	}
 	//////~VIBRATION~HANDLING~//////
-	vibrate();
+	[self vibrate];
 	/////Continue changeVolumeByDelta/////
 	%orig(step);
 }
 	////~ALT~VOLUME~HANDLING~////
 /*- (float)volumeStepUp {
-	vibrate();
+	[self vibrate];
 	return vsEnabled ? VSStepValue : %orig;
 }
 
 - (float)volumeStepDown {
-	vibrate();
+	[self vibrate];
 	return vsEnabled ? (vsSeperate ? vsStepDown : VSStepValue) : %orig;
 }*/
 %end
@@ -81,33 +55,37 @@ static void vibrate(){
 %hook SBVolumeControl
 - (void)decreaseVolume {
 	%orig;
-	vibrate();
 	if (vsEnabled){
 		if (vsSeperate){
-			if ([self _effectiveVolume]-vsStepDown >= 0){
+			currentVolume = ([self _effectiveVolume]-vsStepDown);
+			if (currentVolume >= 0){
 				[self setActiveCategoryVolume:[self _effectiveVolume]-vsStepDown];
 			}else{
 				[self setActiveCategoryVolume:0];
 			}
 		} else {
-			if ([self _effectiveVolume]-VSStepValue >= 0){
+			currentVolume = ([self _effectiveVolume]-VSStepValue);
+			if (currentVolume >= 0){
 				[self setActiveCategoryVolume:[self _effectiveVolume]-VSStepValue];
 			}else{
 				[self setActiveCategoryVolume:0];
 			}
 		}
 	}
+	[self vibrate];
 }
+
 - (void)increaseVolume {
 	%orig;
-	vibrate();
 	if (vsEnabled){
-		if ([self _effectiveVolume]+VSStepValue <= 1){
+		currentVolume = ([self _effectiveVolume]+VSStepValue);
+		if (currentVolume <= 1){
 			[self setActiveCategoryVolume:[self _effectiveVolume]+VSStepValue];
 		} else {
 			[self setActiveCategoryVolume:1];
 		}
 	}
+	[self vibrate];
 }
 
 - (void)changeVolumeByDelta:(float)arg1 {
@@ -122,6 +100,22 @@ static void vibrate(){
 
 - (float)volumeStepDown {
 	return vsEnabled ? 0 : %orig;
+}
+
+%new
+-(void)vibrate{
+	if (vsVibe){
+		if (vsVibeMinMax && !(currentVolume >= 1 || currentVolume <= 0))
+			return;
+
+		if (vsVibLevel == 0){
+			AudioServicesPlaySystemSound(1519);
+		}else if (vsVibLevel == 1){
+			AudioServicesPlaySystemSound(1520);
+		}else if (vsVibLevel == 2){
+			AudioServicesPlaySystemSound(1521);
+		}
+	}
 }
 %end
 %end
