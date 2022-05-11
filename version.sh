@@ -24,7 +24,7 @@ updateVersion(){
 	shopt -u extdebug
 
 	index=0
-echo "${#v[@]}"
+#echo "${#v[@]}"
 	if [[ ${#v[@]} == 1 || ${#v[@]} == 0 ]]; then
 		return
 	fi
@@ -87,7 +87,7 @@ echo "${#v[@]}"
 
 updateVersion $makefile $makefileFind
 updateVersion $control $controlFind
-
+exit;
 if ([[ $controlVersion == $makefileVersion ]] && [[ $oldControlVersion != $controlVersion ]] && [[ $oldMakefileVersion != $makefileVersion ]]) || ([[ $makefileVersion == 0 ]] && [[ $oldControlVersion != $controlVersion ]]); then
 	echo -e "\n\n\e[1;32mVERSION INCREMENTATION SUCCESSFUL\e[0m\n"
 else

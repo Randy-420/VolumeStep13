@@ -10,4 +10,4 @@ Depends: mobilesubstrate, com.randy420.tools (>=2.3)
 Maintainer: Randy420 <randy.skinner@hotmail.com>
 Architecture: iphoneos-arm
 Section: Tweaks
-Version: ./version.sh.0.2.1../version.sh
+Version: 2.1
