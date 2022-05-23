@@ -17,3 +17,5 @@
 *.zip
 packages
 DEBs
+version.sh
+.gitignore
