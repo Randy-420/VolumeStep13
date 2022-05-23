@@ -23,10 +23,11 @@
 @interface SBVolumeControl (volumeStep) {
 	
 }
-//@property (nonatomic) float currentVolume;
+
 -(void)vibrate;
 @end
 
+//SBVolumeControl Possibilities
 /*
 +(id)sharedInstance;
 +(BOOL)_isVolumeChangeAllowedForState:(id)arg1 error:(out id*)arg2 ;

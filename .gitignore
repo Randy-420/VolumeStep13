@@ -1,12 +1,19 @@
 # OS X noise
-.DS_Store
-.AppleDouble
-._*
-.theos
+#.DS_Store
+#.AppleDouble
+#._*
+#.theos
+#*.txt
+#*.sh
+#*.zip
+#.gitignore
+#.git
+#packages
+#DEBs
+
+/.*
 *.txt
 *.sh
 *.zip
-.gitignore
-.git
 packages
 DEBs

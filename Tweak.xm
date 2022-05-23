@@ -59,14 +59,14 @@ static void loader() {
 		if (vsSeperate){
 			currentVolume = ([self _effectiveVolume]-vsStepDown);
 			if (currentVolume >= 0){
-				[self setActiveCategoryVolume:[self _effectiveVolume]-vsStepDown];
+				[self setActiveCategoryVolume:currentVolume];
 			}else{
 				[self setActiveCategoryVolume:0];
 			}
 		} else {
 			currentVolume = ([self _effectiveVolume]-VSStepValue);
 			if (currentVolume >= 0){
-				[self setActiveCategoryVolume:[self _effectiveVolume]-VSStepValue];
+				[self setActiveCategoryVolume:currentVolume];
 			}else{
 				[self setActiveCategoryVolume:0];
 			}
@@ -80,7 +80,7 @@ static void loader() {
 	if (vsEnabled){
 		currentVolume = ([self _effectiveVolume]+VSStepValue);
 		if (currentVolume <= 1){
-			[self setActiveCategoryVolume:[self _effectiveVolume]+VSStepValue];
+			[self setActiveCategoryVolume:currentVolume];
 		} else {
 			[self setActiveCategoryVolume:1];
 		}
